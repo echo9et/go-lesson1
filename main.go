@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -86,7 +85,7 @@ func ParseAnswer(data string) (*Metric, error) {
 }
 
 func CheckMetric(m *Metric) string {
-
+	fmt.Println(m.LoadCPUAverage, m.AllRAM, m.LoadRAM, m.SpaceDisk, m.UseDisk, m.LoadBps, m.BandwidthBps)
 	var out string
 	if m.LoadCPUAverage >= 30 {
 		out += fmt.Sprintf("Load Average is too high: %d\n", m.LoadCPUAverage)
