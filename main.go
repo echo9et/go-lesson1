@@ -85,23 +85,22 @@ func ParseAnswer(data string) (*Metric, error) {
 }
 
 func CheckMetric(m *Metric) string {
-	fmt.Println(m.LoadCPUAverage, m.AllRAM, m.LoadRAM, m.SpaceDisk, m.UseDisk, m.LoadBps, m.BandwidthBps)
 	var out string
 	if m.LoadCPUAverage >= 30 {
 		out += fmt.Sprintf("Load Average is too high: %d\n", m.LoadCPUAverage)
 	}
 
-	percentage := int(float64(m.LoadRAM) / float64(m.AllRAM) * 100)
+	percentage := int(float32(m.LoadRAM) / float32(m.AllRAM) * 100)
 	if percentage >= 80 {
 		out += fmt.Sprintf("Memory usage too high: %d%%\n", percentage)
 	}
 
-	percentage = int(float64(m.UseDisk) / float64(m.SpaceDisk) * 100)
+	percentage = int(float32(m.UseDisk) / float32(m.SpaceDisk) * 100)
 	if percentage >= 90 {
 		out += fmt.Sprintf("Free disk space is too low: %d Mb left\n", (m.SpaceDisk-m.UseDisk)/1024/1024)
 	}
 
-	percentage = int(float64(m.LoadBps) / float64(m.BandwidthBps) * 100)
+	percentage = int(float32(m.LoadBps) / float32(m.BandwidthBps) * 100)
 	if percentage >= 90 {
 		out += fmt.Sprintf("Network bandwidth usage high: %d Mbit/s available\n", (m.BandwidthBps-m.LoadBps)/1_000_000)
 	}
